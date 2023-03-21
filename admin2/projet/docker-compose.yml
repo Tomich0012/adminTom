@@ -1,0 +1,79 @@
+version: '3.8'
+
+services:
+  db:
+    image: mysql:8.0
+    ports:
+      - "3306:3306"
+    container_name: db
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: woodyToys
+      MYSQL_USER: user
+      MYSQL_PASSWORD: userpassword
+    volumes:
+      - db_data:/var/lib/mysql
+      - ./db-init:/docker-entrypoint-initdb.d
+    networks:
+      woodytoys:
+        ipv4_address:  192.168.100.2
+
+  mail:
+    build: ./mail
+    container_name: mail
+    networks:
+      woodytoys:
+        ipv4_address: 192.168.100.3
+
+  web:
+    build: ./web
+    container_name: web
+    depends_on:
+      - db
+    ports:
+      - "8080:80"
+    networks:
+      woodytoys:
+        ipv4_address:  192.168.100.4
+  
+  soa:
+    build: ./soa
+    container_name: soa
+    networks:
+      woodytoys:
+        ipv4_address:  192.168.100.5
+
+  resolver:
+    build: ./resolver
+    container_name: resolver
+    depends_on:
+      - soa
+    networks:
+      woodytoys:
+        ipv4_address: 192.168.100.6
+
+  user1:
+    build: ./pcuser1
+    container_name: user1
+    networks:
+      woodytoys:
+        ipv4_address: 192.168.100.7
+        
+  user2:
+    build: ./pcuser1
+    container_name: user2
+    networks:
+      woodytoys:
+        ipv4_address: 192.168.100.8
+
+
+networks:
+  woodytoys:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 192.168.100.0/24
+
+volumes:
+  db_data:
