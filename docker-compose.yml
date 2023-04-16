@@ -1,8 +1,39 @@
 version: '3.8'
 
 services:
+
+  user1:
+    build: ./pcuser1
+    container_name: user1
+    networks:
+      woodytoys:
+        ipv4_address: 192.168.100.4
+        
+  user2:
+    build: ./pcuser1
+    container_name: user2
+    networks:
+      woodytoys:
+        ipv4_address: 192.168.100.5
+
+  soa:
+    build: ./soa
+    container_name: soa
+    networks:
+      woodytoys:
+        ipv4_address:  192.168.100.6
+
+  resolver:
+    build: ./resolver
+    container_name: resolver
+    depends_on:
+      - soa
+    networks:
+      woodytoys:
+        ipv4_address: 192.168.100.7
+
   db:
-    image: mysql:8.0
+    build: ./db
     ports:
       - "3306:3306"
     container_name: db
@@ -16,14 +47,7 @@ services:
       - ./db-init:/docker-entrypoint-initdb.d
     networks:
       woodytoys:
-        ipv4_address:  192.168.100.2
-
-  mail:
-    build: ./mail
-    container_name: mail
-    networks:
-      woodytoys:
-        ipv4_address: 192.168.100.3
+        ipv4_address:  192.168.100.8
 
   web:
     build: ./web
@@ -34,37 +58,14 @@ services:
       - "8080:80"
     networks:
       woodytoys:
-        ipv4_address:  192.168.100.4
+        ipv4_address:  192.168.100.9
   
-  soa:
-    build: ./soa
-    container_name: soa
+  mail:
+    build: ./mail
+    container_name: mail
     networks:
       woodytoys:
-        ipv4_address:  192.168.100.5
-
-  resolver:
-    build: ./resolver
-    container_name: resolver
-    depends_on:
-      - soa
-    networks:
-      woodytoys:
-        ipv4_address: 192.168.100.6
-
-  user1:
-    build: ./pcuser1
-    container_name: user1
-    networks:
-      woodytoys:
-        ipv4_address: 192.168.100.7
-        
-  user2:
-    build: ./pcuser1
-    container_name: user2
-    networks:
-      woodytoys:
-        ipv4_address: 192.168.100.8
+        ipv4_address: 192.168.100.10
 
 
 networks:

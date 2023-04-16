@@ -11,8 +11,9 @@ $TTL 86400
 
       IN     MX     10     mail.woodytoys.lab.
 
-resolv          IN     A       192.168.100.6
-soa             IN     A       192.168.100.5
-www             IN     A       192.168.100.4
-mail            IN     A       192.168.100.3
-db              IN     A       192.168.100.2
+mail            IN     A       192.168.100.10
+www             IN     A       192.168.100.9
+db              IN     A       192.168.100.8
+resolv          IN     A       192.168.100.7
+soa             IN     A       192.168.100.6
+
