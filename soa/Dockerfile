@@ -12,8 +12,6 @@ COPY reverse.lab /etc/bind/
 #Crée le dossier /var/log/named
 RUN mkdir /var/log/named
 
-#Installer nano et vim
-RUN apt-get install vim nano -y
 #RUN apt install dig -y
 
 #Ouvrir le port 53 avec tcp et udp

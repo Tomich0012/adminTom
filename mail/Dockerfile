@@ -1,14 +1,13 @@
-FROM ubuntu
+FROM ubuntu:latest
 
-RUN apt-get update && \
-    apt-get -y install postfix dovecot-core dovecot-imapd dovecot-pop3d dovecot-lmtpd dovecot-managesieved dovecot-sieve 
+RUN apt update
 
-COPY ./etc/postfix/main.cf /etc/postfix/main.cf
-COPY ./etc/postfix/master.cf /etc/postfix/master.cf
-COPY ./etc/dovecot/dovecot.conf /etc/dovecot/dovecot.conf
+RUN apt install dovecot-imapd dovecot-pop3d -y
+RUN apt install postfix -y
+
+COPY dovecot.conf /etc/dovecot/
+COPY main.cf /etc/postfix/
 
 EXPOSE 25 143 587 993
 
 CMD service postfix start && service dovecot start && tail -f /dev/null
-
-
