@@ -7,14 +7,14 @@ services:
     container_name: user1
     networks:
       woodytoys:
-        ipv4_address: 192.168.100.4
+        ipv4_address: 192.168.200.4
 
   soa:
     build: ./soa
     container_name: soa
     networks:
       woodytoys:
-        ipv4_address:  192.168.100.5
+        ipv4_address:  192.168.200.5
 
   resolver:
     build: ./resolver
@@ -23,7 +23,7 @@ services:
       - soa
     networks:
       woodytoys:
-        ipv4_address: 192.168.100.6
+        ipv4_address: 192.168.200.6
 
   db:
     build: ./db
@@ -40,7 +40,7 @@ services:
       - ./db-init:/docker-entrypoint-initdb.d
     networks:
       woodytoys:
-        ipv4_address:  192.168.100.7
+        ipv4_address:  192.168.200.7
 
   web:
     build: ./web
@@ -51,14 +51,14 @@ services:
       - "8080:80"
     networks:
       woodytoys:
-        ipv4_address:  192.168.100.8
+        ipv4_address:  192.168.200.8
   
   mail:
     build: ./mail
     container_name: mail
     networks:
       woodytoys:
-        ipv4_address: 192.168.100.9
+        ipv4_address: 192.168.200.9
 
 networks:
   woodytoys:
@@ -66,7 +66,7 @@ networks:
     ipam:
       driver: default
       config:
-        - subnet: 192.168.100.0/24
+        - subnet: 192.168.200.0/24
 
 volumes:
   db_data:
