@@ -1,35 +1,64 @@
 version: '3.8'
 
 services:
-
   user1:
     build: ./pcuser1
     container_name: user1
     networks:
-      woodytoys:
+      default:
         ipv4_address: 192.168.200.4
 
-  soa:
-    build: ./soa
-    container_name: soa
+  user2:
+    build: ./pcuser1
+    container_name: user2
     networks:
-      woodytoys:
-        ipv4_address:  192.168.200.5
+      default:
+        ipv4_address: 192.168.200.5
 
-  resolver:
-    build: ./resolver
-    container_name: resolver
-    depends_on:
-      - soa
+  soa_ext:
+    build: ./soa_ext
+    container_name: soa_ext
     networks:
-      woodytoys:
+      default:
         ipv4_address: 192.168.200.6
+
+  soa_int:
+    build: ./soa_int
+    container_name: soa_int
+    networks:
+      default:
+        ipv4_address: 192.168.200.7
+
+  web1:
+    build: ./web1
+    container_name: web1
+    depends_on:
+      - db
+    ports:
+      - "80:80"
+    networks:
+      default:
+        ipv4_address: 192.168.200.8
+
+  b2b:
+    build: ./b2b
+    container_name: b2b
+    networks:
+      default:
+        ipv4_address: 192.168.200.9
+
+  mail:
+    build: ./mail
+    container_name: mail
+    networks:
+      default:
+        ipv4_address: 192.168.200.10
 
   db:
     build: ./db
+    container_name: db
     ports:
       - "3306:3306"
-    container_name: db
     environment:
       MYSQL_ROOT_PASSWORD: rootpassword
       MYSQL_DATABASE: woodyToys
@@ -37,37 +66,26 @@ services:
       MYSQL_PASSWORD: userpassword
     volumes:
       - db_data:/var/lib/mysql
-      - ./db-init:/docker-entrypoint-initdb.d
     networks:
-      woodytoys:
-        ipv4_address:  192.168.200.7
+      default:
+        ipv4_address: 192.168.200.11
 
-  web:
-    build: ./web
-    container_name: web
+  resolver:
+    build: ./resolver
+    container_name: resolver
     depends_on:
-      - db
-    ports:
-      - "80:80"
+      - soa_int
     networks:
-      woodytoys:
-        ipv4_address:  192.168.200.8
-  
-  mail:
-    build: ./mail
-    container_name: mail
-    networks:
-      woodytoys:
-        ipv4_address: 192.168.200.9
+      default:
+        ipv4_address: 192.168.200.12
 
 networks:
-  woodytoys:
+  default:
     driver: bridge
     ipam:
       driver: default
       config:
         - subnet: 192.168.200.0/24
-  
 
 volumes:
   db_data:
