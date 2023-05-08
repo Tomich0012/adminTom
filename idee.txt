@@ -1,0 +1,4 @@
+Lan : user1, user2 
+DMZ : Soa externe, Web1, Web2, Mail 
+DMZ2 : Db 
+Trusted zone : soa interne, resolver 
