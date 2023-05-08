@@ -9,11 +9,12 @@ $TTL 86400
 
         IN      NS      soa.woodytoys.lab.
 
-9       IN      PTR     mail.woodytoys.lab.
-8       IN      PTR     www.woodytoys.lab.
-7       IN      PTR     db.woodytoys.lab.        
-6       IN      PTR     resolv.woodytoys.lab.
-5       IN      PTR     soa.woodytoys.lab.
+
+7        IN      PTR     soa.woodytoys.lab.
+10       IN      PTR     intranet.woodytoys.lab.
+11       IN      PTR     mail.woodytoys.lab.
+12       IN      PTR     db.woodytoys.lab.        
+13       IN      PTR     resolv.woodytoys.lab.
 
 
 

@@ -1,59 +1,65 @@
 version: '3.8'
 
 services:
-
   user1:
     build: ./pcuser1
     container_name: user1
     networks:
-      lan:
+      default:
         ipv4_address: 192.168.200.4
 
   user2:
     build: ./pcuser1
     container_name: user2
     networks:
-      lan:
+      default:
         ipv4_address: 192.168.200.5
 
   soa_ext:
     build: ./soa_ext
     container_name: soa_ext
     networks:
-      dmz:
-        ipv4_address: 192.168.300.4
+      default:
+        ipv4_address: 192.168.200.6
 
   soa_int:
     build: ./soa_int
     container_name: soa_int
     networks:
-      trusted_zone:
-        ipv4_address: 192.168.400.4
+      default:
+        ipv4_address: 192.168.200.7
 
   web1:
-    build: ./web1
+    build: ./web
     container_name: web1
     depends_on:
       - db
     ports:
       - "80:80"
     networks:
-      dmz:
-        ipv4_address: 192.168.300.5
+      default:
+        ipv4_address: 192.168.200.8
 
   b2b:
     build: ./b2b
     container_name: b2b
     networks:
-      dmz:
-        ipv4_address: 192.168.300.6
+      default:
+        ipv4_address: 192.168.200.9
+  
+  intranet:
+    build: ./intranet
+    container_name: intranet
+    networks:
+      default:
+        ipv4_address: 192.168.200.10
 
   mail:
     build: ./mail
     container_name: mail
     networks:
-      dmz:
-        ipv4_address: 192.168.300.7
+      default:
+        ipv4_address: 192.168.200.11
 
   db:
     build: ./db
@@ -67,10 +73,9 @@ services:
       MYSQL_PASSWORD: userpassword
     volumes:
       - db_data:/var/lib/mysql
-      - ./db-init:/docker-entrypoint-initdb.d
     networks:
-      dmz2:
-        ipv4_address: 192.168.301.4
+      default:
+        ipv4_address: 192.168.200.12
 
   resolver:
     build: ./resolver
@@ -78,37 +83,16 @@ services:
     depends_on:
       - soa_int
     networks:
-      trusted_zone:
-        ipv4_address: 192.168.400.5
+      default:
+        ipv4_address: 192.168.200.13
 
 networks:
-  lan:
+  default:
     driver: bridge
     ipam:
       driver: default
       config:
         - subnet: 192.168.200.0/24
-
-  dmz:
-    driver: bridge
-    ipam:
-      driver: default
-      config:
-        - subnet: 192.168.300.0/24
-
-  dmz2:
-    driver: bridge
-    ipam:
-      driver: default
-      config:
-        - subnet: 192.168.301.0/24
-
-  trusted_zone:
-    driver: bridge
-    ipam:
-      driver: default
-      config:
-        - subnet: 192.168.400.0/24
 
 volumes:
   db_data:
