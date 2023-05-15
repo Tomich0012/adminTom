@@ -1,15 +1,15 @@
 $ORIGIN l1-7.ephec-ti.be.
 $TTL 86400
-@     IN     SOA    ns.l1-7.ephec-ti.be.lab.     hostmasterl1-7.ephec-ti.be.lab. (
+@     IN     SOA    ns.l1-7.ephec-ti.be.     hostmasterl1-7.ephec-ti.be. (
                     2001062501 ; serial
                     21600      ; refresh after 6 hours
                     3600       ; retry after 1 hour
                     604800     ; expire after 1 week
                     86400 )    ; minimum TTL of 1 day
 
-      IN     NS     ns.l1-7.ephec-ti.be.lab.
+      IN     NS     ns.l1-7.ephec-ti.be.
 
-      IN     MX     10     mail.l1-7.ephec-ti.be.lab.
+      IN     MX     10     mail.l1-7.ephec-ti.be.
 
 ns              IN     A       74.234.33.246
 www             IN     A       74.234.33.246

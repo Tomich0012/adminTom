@@ -6,6 +6,15 @@ RUN apt install dnsutils -y
 RUN apt install iputils-ping -y
 RUN apt install links -y
 RUN apt install nano
+RUN apt update -y
+RUN apt install net-tools -y
+RUN apt install nano -y
+RUN apt install iputils-ping -y
+RUN apt install traceroute -y
+RUN apt install dnsutils -y
+RUN apt install traceroute -y
+RUN apt install links -y
+RUN apt install tcpdump -y
 
 
 CMD tail -f /dev/null
