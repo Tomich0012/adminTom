@@ -21,6 +21,9 @@ services:
     networks:
       default:
         ipv4_address: 192.168.200.6
+    ports:
+      - "192.168.100.4:53:53/tcp"
+      - "192.168.100.4:53:53/udp"    
 
   soa_int:
     build: ./soa_int
@@ -29,9 +32,9 @@ services:
       default:
         ipv4_address: 192.168.200.7
 
-  web1:
+  web:
     build: ./web
-    container_name: web1
+    container_name: web
     depends_on:
       - db
     ports:
@@ -40,14 +43,14 @@ services:
       default:
         ipv4_address: 192.168.200.8
 
-  b2b:
-    build: ./b2b
-    container_name: b2b
-    ports:
-      - "8080:80"
-    networks:
-      default:
-        ipv4_address: 192.168.200.9
+  #b2b:
+  #  build: ./b2b
+  #  container_name: b2b
+  #  ports:
+  #    - "8080:80"
+  #  networks:
+  #    default:
+  #      ipv4_address: 192.168.200.9
   
   intranet:
     build: ./intranet

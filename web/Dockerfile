@@ -15,4 +15,12 @@ RUN apt install traceroute -y
 RUN apt install links -y
 RUN apt install tcpdump -y
 
+COPY 000-default.conf /etc/apache2/sites-available/000-default.conf
+COPY b2b.conf /etc/apache2/sites-available/b2b.conf
+
+RUN a2ensite 000-default.conf
+RUN a2ensite b2b.conf
+
 COPY . /var/www/html
+COPY ./site_vitrine /var/www/html/site_vitrine
+COPY ./b2b /var/www/html/b2b

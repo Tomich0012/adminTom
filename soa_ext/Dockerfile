@@ -1,4 +1,4 @@
-FROM ubuntu/bind9:latest
+FROM ubuntu/bind9
 
 RUN apt-get update && apt-get install -y bind9
 
