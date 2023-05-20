@@ -1,6 +1,5 @@
 FROM mysql:8.0
 
-#COPY my.cnf /etc/mysql/my.cnf
 
 ENV MYSQL_ROOT_PASSWORD=rootpassword
 ENV MYSQL_DATABASE=woodytoys

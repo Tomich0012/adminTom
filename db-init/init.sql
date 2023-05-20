@@ -12,3 +12,8 @@ VALUES ('Lucian charlot', 'lucian.doe@example.com');
 
 INSERT INTO users (name, email)
 VALUES ('Louis Delaunois', 'louis@example.com');
+
+
+CREATE USER 'lecteur'@'%' IDENTIFIED BY 'lecteurpassword';
+GRANT SELECT ON woodyToys.* TO 'lecteur'@'%';
+FLUSH PRIVILEGES;

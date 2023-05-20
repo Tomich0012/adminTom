@@ -18,7 +18,7 @@ RUN apt install tcpdump -y
 COPY 000-default.conf /etc/apache2/sites-available/000-default.conf
 COPY b2b.conf /etc/apache2/sites-available/b2b.conf
 
-COPY certificate.crt /etc/ssl/certs/certificat.crt
+COPY certificate.crt /etc/ssl/certs/
 COPY private.key /etc/ssl/certs/
 COPY ca_bundle.crt /etc/ssl/certs/
 

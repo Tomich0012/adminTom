@@ -23,7 +23,9 @@ services:
         ipv4_address: 192.168.200.6
     ports:
       - "192.168.100.4:53:53/tcp"
-      - "192.168.100.4:53:53/udp"    
+      - "192.168.100.4:53:53/udp"  
+      
+
 
   soa_int:
     build: ./soa_int
@@ -39,6 +41,7 @@ services:
       - db
     ports:
       - "80:80"
+      - "443:443"
     networks:
       default:
         ipv4_address: 192.168.200.8
